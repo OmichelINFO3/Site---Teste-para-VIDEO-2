@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Exemplo de Métodos do Objeto Áudio</title>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<style>
+body{
+    margin: 0;
+    height: 100vh;
+    background-color: rgb(148, 148, 148);
+}
+#div-geral{
+    background-color: rgb(230, 230, 230);
+    padding: 20px;
+    border-radius: 20px;
+    
+}
+#for-body {
+    flex-grow: 1; /* Faz o for-body ocupar o espaço restante */
+    background-color: rgb(148, 148, 148);
+    padding: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#div-geral-body-aside{
+display: flex;
+justify-content: center;
+align-items: center;
+margin: 0;
+padding: 20px;
+}
+
+#video{
+    border-radius: 20px;
+}
+
+#imgtitulo{
+    padding: 20px;
+}
+
+
+header{
+    background-color: rgb(88, 88, 88);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#main-container {
+    display: flex;
+    justify-content: start; /* Alinha os itens ao início do container */
+    align-items: stretch; /* Estica os itens para preencher o container verticalmente */
+}
+
+#botoes{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    background-color: rgb(209, 209, 209);
+    padding: 18px;
+    border-radius: 10px;
+}
+
+.img-button{
+    width: 25px;
+    height: 25px;
+}
+
+.botao{
+    background-color: rgb(192, 40, 40);
+    border-radius: 10px;
+    padding: 8px;
+    border: none;
+    color: white;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#info{
+    background-color: rgb(172, 172, 172);
+    padding: 12px;
+    border-radius: 20px;
+}
+
+.info-text{
+    font-family: helvetica;
+    background-color: rgb(210, 210, 210);
+    padding: 10px;
+    border-radius: 12px;
+    font-weight: bold;
+}
+
+#current-source{
+    font-family: helvetica;
+    background-color: rgb(210, 210, 210);
+    padding: 10px;
+    border-radius: 12px;
+}
+
+#side {
+    width: 342px; /* Defina uma largura para o aside */
+    background-color: rgb(223, 223, 223);
+    margin: 0;
+    padding: 20px; /* Ajuste o padding conforme necessário */
+    display: flex;
+    justify-content: center;
+    border-radius: 10px;
+    margin: 0;
+}
+
+#aside-button-div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1;
+    padding: 10px;
+}
+
+#aside-content{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    font-family: helvetica;
+    background-color: rgb(80, 80, 80);
+    padding: 20px;
+    border-radius: 10px;
+    color: white;
+}
+
+.music-text{
+    text-align: center;
+    cursor: pointer;
+    background-color: rgb(165, 35, 35);
+    padding: 8px;
+    border-radius: 4px;
+}
+.music-text:hover{
+    box-shadow: 2px 2px 5px rgb(0, 0, 0);
+}
+</style>
+</head>
+<header>
+</header>
+<body>
+    <header>
+        <img src="titulo.png" id="imgtitulo">
+    </header>
+    <div id="main-container">
+        <aside id="side">
+            <div id="aside-content">
+            <img src="aside-picture.png">
+            <p id="msc1" class="music-text">Dont Stop Me Now</p>
+            <p id="msc2" class="music-text">We Will Rock You</p>
+            <p id="msc3" class="music-text">I want to break free</p>
+            <p id="msc4" class="music-text">Love Of My Life</p>
+            <p id="msc5" class="music-text">We are the champions</p>
+            <p id="msc6" class="music-text">One Vision</p>
+            <p id="msc7" class="music-text">Hammer to fall</p>
+            </div>
+            <div id="aside-button-div">
+                <button class="botao" id="botao-close-aside"><img id="img-btn-close"class="img-button" src="close.png"></button>
+            </div>
+        </aside>
+    <div id="for-body">
+        <div id="div-geral">
+            <video id="video" src="DSMN.mp4">
+                <source id="srcvideo" src="DSMN.mp4" type="video/mp4">
+            </video>
+            <div id="botoes">
+                <button id="play" class="botao"><img class="img-button" src="play.png"></button>
+                <button id="pause" class="botao"><img class="img-button" src="pause.png"></button>
+                <button id="show" class="botao"><img class="img-button" src="info.png"></button>
+                <button id="heightp" class="botao"><img class="img-button" src="hm.png"></button>
+                <button id="heightm" class="botao"><img class="img-button" src="hme.png"></button>
+                <button id="heightr" class="botao"><img class="img-button" src="hr.png"></button>
+                <button id="widthp" class="botao"><img class="img-button" src="wm.png"></button>
+                <button id="widthm" class="botao"><img class="img-button" src="wme.png"></button>
+                <button id="widthr" class="botao"><img class="img-button" src="wr.png"></button>
+                <button id="posterchange" class="botao"><img class="img-button" src="img.png"></button>
+            </div>
+            <div id="info" hidden>
+                <h2 id="current-source"></h2>
+                <p class="info-text" id="control"></p>
+                <p class="info-text" id="autoplay"></p>
+                <p class="info-text" id="loop"></p>
+                <p class="info-text" id="poster"></p>
+                <p class="info-text" id="id"></p>
+                <p class="info-text" id="width-video"></p>
+                <p class="info-text" id="height-video"></p>
+               <!--currentSrc, controls, autoplay, loop, poster, id, width, height-->
+            </div>
+        </div>
+    </div>
+</div>
+    <script>
+        
+        $(document).ready(function(){
+            
+            function updateVideoInfo() {
+    var video = document.getElementById("video");
+    // Atualiza o width e o height do vídeo
+    document.getElementById("width-video").innerHTML = "Width do Video: " + video.width;
+    document.getElementById("height-video").innerHTML = "Height do Video: " + video.height;
+    // Atualiza o currentSrc do vídeo
+    document.getElementById("current-source").innerHTML = "Endereço Atual: " + video.src;
+}
+
+
+        var video = document.getElementById("video");
+        let wor = 1280;
+        let hor = 720;
+        let w = wor;
+        let h = hor;
+        let indiceposter = 0;
+        let indicebotao = 0;
+        video.poster = "queen1.jpeg"
+        document.getElementById("video").height = 720;
+        document.getElementById("video").width = 1280;
+
+        video.onended = function(){
+            alert("O video acabou.");
+        }
+
+        document.getElementById("current-source").innerHTML = "Endereço Atual: "+video.src;
+
+        if(video.controls){
+            document.getElementById("control").style.color = "Green";
+            document.getElementById("control").innerHTML = "Há controles";
+        }else{
+            document.getElementById("control").style.color = "Red";
+            document.getElementById("control").innerHTML = "Não há controles";
+        }
+
+        if(video.autoplay){
+            document.getElementById("autoplay").style.color = "Green";
+            document.getElementById("autoplay").innerHTML = "O video possui autoplay";
+        }else{
+            document.getElementById("autoplay").style.color = "Red";
+            document.getElementById("autoplay").innerHTML = "O video não possui autoplay";
+        }
+
+        if(video.loop){
+            document.getElementById("loop").style.color = "Green";
+            document.getElementById("loop").innerHTML = "O video está em loop";
+        }else{
+            document.getElementById("loop").style.color = "Red";
+            document.getElementById("loop").innerHTML = "O video não esta em loop";
+        }
+
+            document.getElementById("poster").innerHTML = "Poster Atual: "+video.poster;    
+            document.getElementById("id").innerHTML = "ID do Arquivo: "+video.id;
+            document.getElementById("width-video").innerHTML = "Width do Video: "+video.width;
+            document.getElementById("height-video").innerHTML = "Height do Video: "+video.height;
+
+        if(video.canPlayType("video/mp4")){
+            console.log("Arquivo Suportado");
+        }
+        else{
+            console.log("Arquivo Não Suportado");
+        }
+
+            $("#play").click(function(){
+                video.play();
+            });
+
+            $("#pause").click(function(){
+                video.pause();
+                alert("Video Pausado");
+            });
+
+            $("#heightp").click(function(){
+                h = h + 50;
+                document.getElementById("video").height = h;
+                updateVideoInfo(); // Atualiza as informações
+            });
+
+            $("#heightm").click(function(){
+                h = h - 50;
+                document.getElementById("video").height = h;
+                updateVideoInfo(); // Atualiza as informações
+            });
+
+            $("#heightr").click(function(){
+                document.getElementById("video").height = hor;
+                updateVideoInfo(); // Atualiza as informações
+            });
+
+            $("#widthp").click(function(){
+                w = w + 50;
+                document.getElementById("video").width = w;
+                updateVideoInfo(); // Atualiza as informações
+            });
+
+            $("#widthm").click(function(){
+                w = w - 50;
+                document.getElementById("video").width = w;
+                updateVideoInfo(); // Atualiza as informações
+            });
+
+            $("#widthr").click(function(){
+                document.getElementById("video").width = wor;
+                updateVideoInfo(); // Atualiza as informações
+            });
+
+            $("#show").click(function(){
+                $("#info").slideToggle();
+            });
+
+            $("#botao-close-aside").click(function(){
+                $("#aside-content").slideToggle();
+                indicebotao++;
+                if(indicebotao%2==0){
+                    $("#img-btn-close").attr('src','close.png')
+                }else{
+                    $("#img-btn-close").attr('src','play.png')
+                }
+                
+            });
+
+            $("#posterchange").click(function(){
+                indiceposter++;
+                if(indiceposter %2 == 0){
+                video.poster = "queen1.jpeg"
+                document.getElementById("video").height = 720;
+                document.getElementById("video").width = 1280;
+                }
+                else{
+                video.poster = "queen2.jpeg"
+                document.getElementById("video").height = 720;
+                document.getElementById("video").width = 1280;
+                }
+            });
+
+            $("#msc1").click(function(){
+                $("#video").attr('src','DSMN.mp4')
+                updateVideoInfo();
+            });
+            
+            $("#msc2").click(function(){
+                $("#video").attr('src','wwry.mp3')
+                updateVideoInfo();
+            });
+
+            $("#msc3").click(function(){
+                $("#video").attr('src','iwtbf.mp3')
+                updateVideoInfo();
+            });
+
+            $("#msc4").click(function(){
+                $("#video").attr('src','loml.mp3')
+                updateVideoInfo();
+            });
+
+            $("#msc5").click(function(){
+                $("#video").attr('src','watc.mp3')
+                updateVideoInfo();
+            });
+
+            $("#msc6").click(function(){
+                $("#video").attr('src','ov.mp3')
+                updateVideoInfo();
+            });
+
+            $("#msc7").click(function(){
+                $("#video").attr('src','htf.mp3')
+                updateVideoInfo();
+            });
+        });
+    </script>
+</body>
+</html>
